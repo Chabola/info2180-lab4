@@ -1,10 +1,13 @@
-window.addEventListener('load', function() {
+window.onload = function() {
     let btn = document.querySelector('.btn');
-
+    let text = document.querySelector('#text');
+    let h3 = document.getElementsByTagName("h3")[0];
+    let h4 = document.getElementsByTagName("h4")[0];
+    let p = document.getElementsByTagName("p")[0];
+    let result = document.getElementsByClassName("result")[0];
     btn.addEventListener('click', function(element) {
         element.preventDefault();
-
-        fetch("superheroes.php")
+        fetch("superheroes.php?query="+text.value)
             .then(response => {
                 if (response.ok) {
                     return response.text()
@@ -13,8 +16,33 @@ window.addEventListener('load', function() {
                 }
             })
             .then(data => {
-               alert(data);
+                var res = data.split("|");
+                if (text.value == res[1]) {
+                    h3.textContent= res[2];
+                    h4.textContent= res[1];
+                    p.textContent= res[3];
+                    result.innerText="";
+                } else if (text.value == res[2]) {
+                    h3.textContent= res[2];
+                    h4.textContent= res[1];
+                    p.textContent= res[3];
+                    result.innerText="";
+                }else if (text.value.length == 0) {
+                    h3.textContent= "";
+                    h4.textContent= "";
+                    p.textContent= "";
+                    result.textContent= data;
+                }
+                else if (text.value.length != 0){
+                    h3.textContent= "";
+                    h4.textContent= "";
+                    p.textContent= "";
+                    result.textContent= "SUPERHERO NOT FOUND";
+
+                }
+                
             })
             .catch(error => console.log('There was an error: ' + error));
+        
     });
-});
+}

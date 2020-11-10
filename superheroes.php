@@ -64,9 +64,19 @@ $superheroes = [
 ];
 
 ?>
-
-<ul>
-<?php foreach ($superheroes as $superhero): ?>
-  <li><?= $superhero['alias']; ?></li>
-<?php endforeach; ?>
-</ul>
+<?php
+  $query = $_REQUEST['query'];
+  $q = filter_var($query, FILTER_SANITIZE_STRING);
+  foreach ($superheroes as $superhero): ?>
+    <?php if ($q === $superhero['alias']): ?>
+      <?php $arr= implode("|", $superhero);?>
+      <?=$arr;?>
+    <?php endif; ?>
+    <?php if ($q === $superhero['name']): ?>
+      <?php $arr= implode("|", $superhero);?>
+      <?=$arr;?>
+    <?php endif; ?>
+    <?php if ($q === ""): ?>
+      <li><?= $superhero['alias']; ?></li>
+    <?php endif; ?>
+  <?php endforeach; ?>
