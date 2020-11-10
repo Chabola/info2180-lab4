@@ -31,13 +31,15 @@ window.onload = function() {
                     h3.textContent= "";
                     h4.textContent= "";
                     p.textContent= "";
-                    result.textContent= data;
+                    result.innerHTML= data;
                 }
                 else if (text.value.length != 0){
                     h3.textContent= "";
                     h4.textContent= "";
                     p.textContent= "";
-                    result.textContent= "SUPERHERO NOT FOUND";
+                    var txt = "SUPERHERO NOT FOUND";
+                    txt = txt.fontcolor("red");
+                    result.innerHTML= txt;
 
                 }
                 
